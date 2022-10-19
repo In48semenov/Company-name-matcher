@@ -1,0 +1,8 @@
+matplotlib==3.6.1
+name_matching==0.8.4
+pandas==1.5.0
+scikit-learn==1.1.2
+torch==1.10.0
+tqdm==4.64.1
+transformers==4.11.3
+transliterate==1.10.2
