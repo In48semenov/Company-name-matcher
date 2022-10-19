@@ -24,6 +24,7 @@ class BertTrainClf:
     def _train(self):
         print('Training')
 
+        self.model.train()
         train_loss_list = []
         true_label, predict_label = [], []
         prog_bar = tqdm(self.trainDataloader, total=len(self.trainDataloader))
@@ -60,6 +61,7 @@ class BertTrainClf:
     def _evolution(self):
         print('Validating')
 
+        self.model.eval()
         val_loss_list = []
         true_label, predict_label = [], []
         prog_bar = tqdm(self.valDataloader, total=len(self.valDataloader))
