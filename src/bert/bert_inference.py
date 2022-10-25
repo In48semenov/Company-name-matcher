@@ -17,7 +17,7 @@ class BertPipeline:
             companies,
             truncation=True,
             add_special_tokens=False,
-            max_length=60,
+            max_length=120,
             pad_to_max_length=True,
             return_tensors='pt'
         )
