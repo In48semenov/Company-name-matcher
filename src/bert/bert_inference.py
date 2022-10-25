@@ -1,15 +1,17 @@
+import pandas as pd
 import torch
 import transformers
+from tqdm import tqdm
 
 
 class BertPipeline:
+    threshold = 0.824992835521698
 
-    def __init__(self, path_to_model: str, tokenizer: transformers, device: str = 'cpu', debug: bool = False):
+    def __init__(self, path_to_model: str, tokenizer: transformers, device: str = 'cpu'):
         self.model = torch.load(path_to_model, map_location=device)
         self.model.eval()
         self.tokenizer = tokenizer
         self.device = device
-        self.debug= debug
 
     def _get_tokens(self, cmp_1: str, smp_2: str):
         companies = '[CLS] ' + cmp_1 + ' [SEP] ' + smp_2 + ' [SEP]'
@@ -28,13 +30,38 @@ class BertPipeline:
         }
 
     @torch.no_grad()
-    def __call__(self, company_1: str, company_2: str):
-        tokens = self._get_tokens(company_1, company_2)
-        logits = self.model(
-            tokens['input_ids'].to(self.device), attention_mask=tokens['attention_mask'].to(self.device)
-        ).logits
-        if self.debug:
-            cls = torch.nn.Softmax(dim=1)(logits.cpu())[0][1].item()
+    def __call__(self, company_1: str, company_2: str = None, top_n: int = 10):
+        if company_2 is not None:
+            tokens = self._get_tokens(company_1, company_2)
+            logits = self.model(
+                tokens['input_ids'].to(self.device), attention_mask=tokens['attention_mask'].to(self.device)
+            ).logits
+
+            proba_logit = torch.nn.Softmax(dim=1)(logits.cpu())[0][1].item()
+
+            if proba_logit > self.threshold:
+                return 1
+            else:
+                return 0
+
         else:
-            cls = torch.argmax(logits.cpu(), dim=1).item()
-        return cls
+            companies_bd = pd.read_csv('../data/companies_bd.csv')
+
+            selected_companies = dict()
+            for idx, company in tqdm(enumerate(companies_bd['company_preprocess'])):
+                tokens = self._get_tokens(company_1, company_2)
+                logits = self.model(
+                    tokens['input_ids'].to(self.device), attention_mask=tokens['attention_mask'].to(self.device)
+                ).logits
+                proba_logit = torch.nn.Softmax(dim=1)(logits.cpu())[0][1].item()
+                if proba_logit > self.threshold:
+                    selected_companies[companies_bd['company'].iloc[idx]] = proba_logit
+
+            if len(selected_companies) > 0:
+                return list(
+                    dict(
+                        sorted(selected_companies.items(), key=lambda item: item[1], reverse=True)
+                    ).keys()
+                )[:top_n]
+            else:
+                return []

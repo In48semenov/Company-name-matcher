@@ -6,6 +6,7 @@ from tqdm import tqdm
 
 
 class SentBertPipeline:
+    threshold = 0.8
 
     def __init__(self, path_to_model: str, device: str = 'cpu', action: str = 'classification'):
         self.device = device
@@ -20,7 +21,7 @@ class SentBertPipeline:
                 convert_to_tensor=True, device=self.device
             )
             cosine_score = util.cos_sim(embeddings[0], embeddings[1])[0][0].item()
-            if cosine_score > 0.8:
+            if cosine_score > self.threshold:
                 return 1
             else:
                 return 0
@@ -37,7 +38,7 @@ class SentBertPipeline:
 
             selected_companies = dict()
             for cmp, cos in zip(companies_bd, cosine_score):
-                if cos > 0.8:
+                if cos > self.threshold:
                     selected_companies[cmp] = cos
 
             if len(selected_companies) > 0:
