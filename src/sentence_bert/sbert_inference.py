@@ -8,7 +8,7 @@ from tqdm import tqdm
 class SentBertPipeline:
     threshold = 0.8
 
-    def __init__(self, path_to_model: str, device: str = 'cpu', action: str = 'classification'):
+    def __init__(self, path_to_model: str = '../../weights/sbert', device: str = 'cpu'):
         self.device = device
         self.model = SentenceTransformer(path_to_model, device=self.device)
 

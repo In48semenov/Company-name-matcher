@@ -7,7 +7,8 @@ from tqdm import tqdm
 class BertPipeline:
     threshold = 0.824992835521698
 
-    def __init__(self, path_to_model: str, tokenizer: transformers, device: str = 'cpu'):
+    def __init__(self, tokenizer: transformers, path_to_model: str = '../../weights/BertNameCompany_v1_best.pth',
+                 device: str = 'cpu'):
         self.model = torch.load(path_to_model, map_location=device)
         self.model.eval()
         self.tokenizer = tokenizer
