@@ -3,4 +3,5 @@
 data/*.csv
 .ipynb_checkpoints*
 __pycache__*
-weights/*pt
+weights/*pth
+.env
