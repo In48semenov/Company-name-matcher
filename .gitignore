@@ -1,7 +1,13 @@
-.idea/
-.venv/
-data/*.csv
 .ipynb_checkpoints*
 __pycache__*
-weights/*pth
+
+.vscode/
+.idea/
+.venv/
+
 .env
+
+data/*.csv
+
+weights/**
+!weights/.gitkeep

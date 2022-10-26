@@ -8,7 +8,7 @@ class BertTrainClf:
 
     def __init__(self, model: transformers, trainDataloader: torch, valDataloader: torch, criteriation: torch,
                  optimizer: torch, scheduler: torch = None, device: str = 'cuda:0',
-                 model_name: str = 'BertNameCompany'):
+                 model_name: str = 'BertNameCompany', save_dir: str = '../weights'):
 
         self.model = model
         self.trainDataloader = trainDataloader
@@ -18,6 +18,7 @@ class BertTrainClf:
         self.scheduler = scheduler
         self.device = device
         self.model_name = model_name
+        self.save_dir = save_dir
 
         self.model.to(self.device)
 
@@ -110,13 +111,13 @@ class BertTrainClf:
                 best_loss = val_loss
                 best_f1 = val_f1
                 try:
-                    torch.save(self.model, f'../weights/{self.model_name}_best.pth')
+                    torch.save(self.model, f'{self.save_dir}/best.pth')
                     print('Save best model.')
                 except:
                     print("Can't save best model!")
 
             try:
-                torch.save(self.model, f'../weights/{self.model_name}_last.pth')
+                torch.save(self.model, f'{self.save_dir}/last.pth')
             except:
                 print("Can't save last model!")
 
