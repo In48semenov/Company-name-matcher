@@ -11,3 +11,5 @@ mlflow==1.30.0
 python-dotenv==0.21.0
 boto3==1.25.0
 adjustText==0.7.3
+wikipedia==1.4.0
+gensim==4.2.0
