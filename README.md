@@ -2,6 +2,9 @@
 **Detection of car numbers and their recognition**
 # Project structure
 
+# Pipeline 
+![Pipeline](./data/pipeline.png)
+
 Our solution consists of one main parts:
 1. **Сlassifier** - solving a classification problem to determine whether the names are one firm
 
