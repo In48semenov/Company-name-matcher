@@ -60,5 +60,10 @@ chmod +x load_data.sh
 
 [**Link**](https://drive.google.com/drive/folders/175r-xavYr0N_iv7QhI7fAFiYw1e-qqAh?usp=sharing) to the directory with all weights that are used in this work.
 # Reference 
-1. [SentenceTransformers](https://www.sbert.net/)
-1. [fastText](https://github.com/facebookresearch/fastText)
+1. [Bert](https://huggingface.co/docs/transformers/model_doc/bert)
+2. [SentenceTransformers](https://www.sbert.net/)
+3. [fastText](https://github.com/facebookresearch/fastText)
+4. [Contrastive Loss](https://www.sbert.net/docs/package_reference/losses.html)
+5. [Contrastive Loss Explaines](https://towardsdatascience.com/contrastive-loss-explaned-159f2d4a87ec)
+6. [Dimensionality Reduction by Learning an Invariant Mapping](http://yann.lecun.com/exdb/publis/pdf/hadsell-chopra-lecun-06.pdf)
+7. [Label Smoothing Cross Entropy](https://towardsdatascience.com/what-is-label-smoothing-108debd7ef06)
