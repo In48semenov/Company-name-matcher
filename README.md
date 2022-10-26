@@ -5,8 +5,9 @@
 # Pipeline 
 ![Pipeline](./data/pipeline.png)
 
-Our solution consists of one main parts:
+Our solution consists of several main parts:
 1. **Сlassifier** - solving a classification problem to determine whether the names are one firm
+2. **Recommendation** - solving the recommendation problem in order to suggest top n similar company names for the name of one company
 
 There is a strict interface for each of the parts. Each part is independent of the other. A special interface has been implemented for this module.
 
@@ -38,7 +39,12 @@ This rep presents three methods for solving the problem:
 -
 
 # Usage
-We tested three different classification models.You can combine them however you like. Be careful with experiments, look at the results.
+We tested three different models:
+- bert
+- sentence transformer
+- FastText
+
+You can combine them however you like. Be careful with experiments, look at the results.
 
 To demonstrate the results of the project, you can use a [tutorial.ipynb](./tutorial.ipynb) Before using it, you need to install the project dependencies:
 ```
