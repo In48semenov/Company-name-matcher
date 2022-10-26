@@ -49,9 +49,7 @@ class BertPipeline:
             else:
                 return 0
         else:
-            companies_bd = pd.read_csv(
-                f"{module_folder}/../../database/data/companies_bd.csv"
-            )
+            companies_bd = pd.read_csv(f"{module_folder}/../../data/database/companies_bd.csv")
 
             selected_companies = dict()
             for idx, company in tqdm(enumerate(companies_bd["company_preprocess"])):
