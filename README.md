@@ -3,7 +3,7 @@
 # Project structure
 
 # Pipeline 
-![Pipeline](./data/pipeline.png)
+![Pipeline](./data/pipeine.png)
 
 Our solution consists of several main parts:
 1. **Сlassifier** - solving a classification problem to determine whether the names are one firm
