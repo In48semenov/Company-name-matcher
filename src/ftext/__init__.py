@@ -1,0 +1,1 @@
+from .fasttext_inference import FastTextPipeline

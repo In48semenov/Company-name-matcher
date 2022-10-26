@@ -1,8 +1,9 @@
 import os
 import click
 
-from sentence_bert import SentBertPipeline
 from bert import BertPipeline
+from sentence_bert import SentBertPipeline
+from ftext import FastTextPipeline
 
 from transformers import AutoTokenizer
 
@@ -35,8 +36,8 @@ def compare_two_company_name(algo="bert", weight_path=None, device="cpu", names=
         model = SentBertPipeline(weight_path, device)
     elif algo == "fasttext":
         if weight_path is None:
-            weight_path = f"{module_folder}/../weights/inference/sbert"
-        model = SentBertPipeline(weight_path, device)
+            weight_path = f"{module_folder}/../weights/inference/fasttext/company_model.bin"
+        model = FastTextPipeline(weight_path)
     else:
         raise Exception("Given model not found")
     result = model(*names)

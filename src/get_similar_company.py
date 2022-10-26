@@ -4,6 +4,7 @@ import click
 from bert import BertPipeline
 from sentence_bert import SentBertPipeline
 from transformers import AutoTokenizer
+from ftext import FastTextPipeline
 
 
 @click.command()
@@ -35,9 +36,13 @@ def get_similar_company(
         if weight_path is None:
             weight_path = f"{module_folder}/../weights/inference/sbert"
         model = SentBertPipeline(weight_path, device)
+    elif algo == "fasttext":
+        if weight_path is None:
+            weight_path = f"{module_folder}/../weights/inference/fasttext/rec_model.bin"
+        model = FastTextPipeline(weight_path)
     else:
         raise Exception("Given model not found")
-    result = model(name)
+    result = model(company_1=name, top_n=top_n)
 
     print(f"Найдено {len(result)} похожих компаний:")
     for item in result:

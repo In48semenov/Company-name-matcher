@@ -7,7 +7,7 @@ module_realpath = os.path.realpath(__file__)
 module_folder = os.path.dirname(module_realpath)
 
 
-class FasTextPipeline:
+class FastTextPipeline:
     def __init__(self, path_to_model: str):
         self.model = fasttext.load_model(path_to_model)
 
@@ -22,7 +22,7 @@ class FasTextPipeline:
             )
         else:
             ft_company_vectors = pd.read_csv(
-                f"{module_folder}/../../database/data/ft_company_vectors.csv"
+                f"{module_folder}/../../data/database/ft_company_vectors.csv"
             )
             ft_company_vectors["score"] = ft_company_vectors.apply(
                 lambda x: spatial.distance.euclidean(company_1, x["vectors"]), axis=1
