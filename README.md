@@ -31,19 +31,31 @@ This rep presents three methods for solving the problem:
 └── tutorial.ipynb          <- Demonstration work
 ```
 
-# Results 
--
-## Metrics
-- 
-## Performance 
--
+# MLFlow 
+To track the results of experiments, we used MLFlow. MLFlow - an open source platform for the machine learning lifecycle. We used the architecture shown below in the picture. 
+![Pipeline](./data/mlflow-arc.png)
 
+
+With the help of MLFlow, the following tasks were solved:
+1. Collect summary information
+![summary information](./data/collecting_data.png)
+2. Save artifacts
+ ![summary information](data/artifacts.png)
+3. Manage machine learning models (in process)
+
+# Metrics
+**Classification task**
+|Model|F1 Macro Score|
+|:------|:-------|
+|Bert|0.97|
+|Sentence Bert|0,61|
+|FastText|0.87|
 # Usage
 We tested three different models:
 - bert
 - sentence transformer
 - FastText
-
+2. Sava artifacts
 You can combine them however you like. Be careful with experiments, look at the results.
 
 To demonstrate the results of the project, you can use a [tutorial.ipynb](./tutorial.ipynb) Before using it, you need to install the project dependencies:
