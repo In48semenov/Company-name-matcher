@@ -6,6 +6,8 @@ from bert import BertPipeline
 
 from transformers import AutoTokenizer
 
+module_realpath = os.path.realpath(__file__)
+module_folder = os.path.dirname(module_realpath)
 
 @click.command()
 @click.option(
@@ -20,9 +22,6 @@ def compare_two_company_name(algo="bert", weight_path=None, device="cpu", names=
     assert names is not None
     assert len(names) == 2
 
-    module_realpath = os.path.realpath(__file__)
-    module_folder = os.path.dirname(module_realpath)
-
     if algo == "bert":
         if weight_path is None:
             weight_path = f"{module_folder}/../weights/inference/bert.pth"
@@ -31,6 +30,10 @@ def compare_two_company_name(algo="bert", weight_path=None, device="cpu", names=
         )
         model = BertPipeline(tokenizer, weight_path, device)
     elif algo == "sentence_bert":
+        if weight_path is None:
+            weight_path = f"{module_folder}/../weights/inference/sbert"
+        model = SentBertPipeline(weight_path, device)
+    elif algo == "fasttext":
         if weight_path is None:
             weight_path = f"{module_folder}/../weights/inference/sbert"
         model = SentBertPipeline(weight_path, device)

@@ -15,8 +15,10 @@ from transformers import AutoTokenizer
 @click.option("-p", "--weight-path", default=None, type=click.Path(exists=True))
 @click.option("-d", "--device", default="cpu", type=click.Choice(["cpu", "cuda"]))
 @click.option("-n", "--name", default=None, nargs=1, type=str)
-@click.option('--top_n', default=10, type=int)
-def get_similar_company(algo="bert", weight_path=None, device="cpu", name=None, top_n=10):
+@click.option("--top_n", default=10, type=int)
+def get_similar_company(
+    algo="bert", weight_path=None, device="cpu", name=None, top_n=10
+):
     assert name is not None
 
     module_realpath = os.path.realpath(__file__)

@@ -8,7 +8,7 @@ class LabelSmoothingCrossEntropy(nn.Module):
         self.smoothing = smoothing
 
     def forward(self, x, target):
-        confidence = 1. - self.smoothing
+        confidence = 1.0 - self.smoothing
         logprobs = F.log_softmax(x, dim=-1)
         nll_loss = -logprobs.gather(dim=-1, index=target.unsqueeze(1))
         nll_loss = nll_loss.squeeze(1)

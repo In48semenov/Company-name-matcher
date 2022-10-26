@@ -5,10 +5,18 @@ from tqdm import tqdm
 
 
 class BertTrainClf:
-
-    def __init__(self, model: transformers, trainDataloader: torch, valDataloader: torch, criteriation: torch,
-                 optimizer: torch, scheduler: torch = None, device: str = 'cuda:0',
-                 model_name: str = 'BertNameCompany', save_dir: str = '../weights'):
+    def __init__(
+        self,
+        model: transformers,
+        trainDataloader: torch,
+        valDataloader: torch,
+        criteriation: torch,
+        optimizer: torch,
+        scheduler: torch = None,
+        device: str = "cuda:0",
+        model_name: str = "BertNameCompany",
+        save_dir: str = "../weights",
+    ):
 
         self.model = model
         self.trainDataloader = trainDataloader
@@ -23,7 +31,7 @@ class BertTrainClf:
         self.model.to(self.device)
 
     def _train(self):
-        print('Training')
+        print("Training")
 
         self.model.train()
         train_loss_list = []
@@ -33,9 +41,9 @@ class BertTrainClf:
         for i, data in enumerate(prog_bar):
             self.optimizer.zero_grad()
 
-            input_ids = torch.squeeze(data['input_ids']).to(self.device)
-            attention_mask = torch.squeeze(data['attention_mask']).to(self.device)
-            labels = torch.squeeze(data['label'])
+            input_ids = torch.squeeze(data["input_ids"]).to(self.device)
+            attention_mask = torch.squeeze(data["attention_mask"]).to(self.device)
+            labels = torch.squeeze(data["label"])
 
             logits = self.model(input_ids, attention_mask=attention_mask).logits
 
@@ -54,13 +62,13 @@ class BertTrainClf:
             prog_bar.set_description(desc=f"Loss: {curr_loss.item():.4f}")
 
         train_loss = sum(train_loss_list) / (i + 1)
-        f1 = f1_score(true_label, predict_label, average='macro')
+        f1 = f1_score(true_label, predict_label, average="macro")
 
         return train_loss, f1
 
     @torch.no_grad()
     def _evolution(self):
-        print('Validating')
+        print("Validating")
 
         self.model.eval()
         val_loss_list = []
@@ -68,9 +76,9 @@ class BertTrainClf:
         prog_bar = tqdm(self.valDataloader, total=len(self.valDataloader))
 
         for i, data in enumerate(prog_bar):
-            input_ids = torch.squeeze(data['input_ids']).to(self.device)
-            attention_mask = torch.squeeze(data['attention_mask']).to(self.device)
-            labels = torch.squeeze(data['label'])
+            input_ids = torch.squeeze(data["input_ids"]).to(self.device)
+            attention_mask = torch.squeeze(data["attention_mask"]).to(self.device)
+            labels = torch.squeeze(data["label"])
 
             logits = self.model(input_ids, attention_mask=attention_mask).logits
 
@@ -83,7 +91,7 @@ class BertTrainClf:
             prog_bar.set_description(desc=f"Loss: {curr_loss.item():.4f}")
 
         val_loss = sum(val_loss_list) / (i + 1)
-        f1 = f1_score(true_label, predict_label, average='macro')
+        f1 = f1_score(true_label, predict_label, average="macro")
         return val_loss, f1
 
     def __call__(self, num_epochs):
@@ -102,7 +110,7 @@ class BertTrainClf:
             train_f1_history.append(train_f1)
             val_f1_history.append(val_f1)
 
-            print(f'f1_macro_train: {train_f1:.3f}\nf1_macro_val: {val_f1:.3f}')
+            print(f"f1_macro_train: {train_f1:.3f}\nf1_macro_val: {val_f1:.3f}")
             if epoch == 0:
                 best_loss = val_loss
                 best_f1 = val_f1
@@ -111,19 +119,19 @@ class BertTrainClf:
                 best_loss = val_loss
                 best_f1 = val_f1
                 try:
-                    torch.save(self.model, f'{self.save_dir}/best.pth')
-                    print('Save best model.')
+                    torch.save(self.model, f"{self.save_dir}/best.pth")
+                    print("Save best model.")
                 except:
                     print("Can't save best model!")
 
             try:
-                torch.save(self.model, f'{self.save_dir}/last.pth')
+                torch.save(self.model, f"{self.save_dir}/last.pth")
             except:
                 print("Can't save last model!")
 
         return {
-            'train_loss_history': train_loss_history,
-            'val_loss_history': val_loss_history,
-            'train_f1_history': train_f1_history,
-            'val_f1_history': val_f1_history
+            "train_loss_history": train_loss_history,
+            "val_loss_history": val_loss_history,
+            "train_f1_history": train_f1_history,
+            "val_f1_history": val_f1_history,
         }
