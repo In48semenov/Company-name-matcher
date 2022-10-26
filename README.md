@@ -1,9 +1,10 @@
 # Company name matcher
 **Comparison of company names and search for similar companies in our database**
-# Project structure
 
 # Pipeline 
 ![Pipeline](./data/pipeine.png)
+
+# Project structure
 
 Our solution consists of several main parts:
 1. **Сlassifier** - solving a classification problem to determine whether the names are one firm
