@@ -53,7 +53,7 @@ class BertPipeline:
 
             selected_companies = dict()
             for idx, company in tqdm(enumerate(companies_bd["company_preprocess"])):
-                tokens = self._get_tokens(company_1, company_2)
+                tokens = self._get_tokens(company_1, company)
                 logits = self.model(
                     tokens["input_ids"].to(self.device),
                     attention_mask=tokens["attention_mask"].to(self.device),
