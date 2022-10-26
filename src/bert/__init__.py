@@ -1,0 +1,1 @@
+from .bert_inference import BertPipeline

@@ -1,0 +1,1 @@
+from .sbert_inference import SentBertPipeline
