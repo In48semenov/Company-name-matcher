@@ -51,6 +51,8 @@ With the help of MLFlow, the following tasks were solved:
 |Bert|0.97|
 |Sentence Bert|0,61|
 |FastText|0.87|
+
+Sentence Bert has worse results than Bert due to the peculiarities of the models. Sentence Bert is used to build embeds and cosine distance is calculated from them, and the names of companies that had similar words will have a similar representation of embeds.
 # Usage
 We tested three different models:
 - bert
