@@ -1,4 +1,4 @@
-from sklearn.metrics import f1_score, classification_report
+from sklearn.metrics import f1_score
 import torch
 import transformers
 from tqdm import tqdm
