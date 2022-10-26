@@ -53,7 +53,6 @@ class BertTrainClf:
             true_label.extend(labels)
             predict_label.extend(torch.argmax(logits.cpu(), dim=1))
 
-            # optimization
             curr_loss.backward()
             self.optimizer.step()
             if self.scheduler is not None:
