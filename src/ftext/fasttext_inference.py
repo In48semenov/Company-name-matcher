@@ -1,7 +1,9 @@
 import fasttext
 import pandas as pd
 import os
+import numpy as np
 from scipy import spatial
+from ast import literal_eval
 
 module_realpath = os.path.realpath(__file__)
 module_folder = os.path.dirname(module_realpath)
@@ -24,6 +26,11 @@ class FastTextPipeline:
             ft_company_vectors = pd.read_csv(
                 f"{module_folder}/../../data/database/ft_company_vectors.csv"
             )
+            ft_company_vectors["vectors"] = ft_company_vectors["vectors"].apply(
+                lambda x: np.fromstring(" ".join(x[1:-1].split()), dtype=float, sep=" ")
+            )
+
+            company_1 = list(self.model.get_sentence_vector(company_1))
             ft_company_vectors["score"] = ft_company_vectors.apply(
                 lambda x: spatial.distance.euclidean(company_1, x["vectors"]), axis=1
             )
