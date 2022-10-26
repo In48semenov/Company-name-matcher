@@ -1,5 +1,5 @@
-# Car number
-**Detection of car numbers and their recognition**
+# Company name matcher
+**Comparison of company names and search for similar companies in our database**
 # Project structure
 
 # Pipeline 
